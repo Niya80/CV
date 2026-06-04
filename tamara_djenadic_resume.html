@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tamara Djenadic · Product Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,400..600&family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF9F6;          /* warm off-white base */
+    --tint:#F2EFE8;        /* warm section band */
+    --card:#FFFFFF;        /* card surface */
+    --ink:#2D2438;         /* deep plum */
+    --ink-soft:rgba(45,36,56,.78); /* body text 80% */
+    --faint:#8B83A0;       /* muted plum-gray (proposed) */
+    --line:#E9E4F0;        /* lavender-gray border */
+    --violet:#8260AB;      /* soft purple accent */
+    --violet-deep:#6B4F8E; /* hover/active */
+    --lav:#C4B5FD;         /* soft lavender glow (proposed) */
+    --shadow:rgba(45,36,56,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Hanken Grotesk',sans-serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .mono{font-family:'IBM Plex Mono',monospace;font-size:.72em;letter-spacing:.08em;text-transform:uppercase}
+  p,li{text-align:justify}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px 32px;transition:background .4s,box-shadow .4s,padding .4s}
+  nav.scrolled{background:rgba(250,249,246,.9);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line);padding:12px 32px}
+  nav .brand{font-family:'Fraunces';font-weight:600;font-size:20px;letter-spacing:-.01em}
+  nav .links{display:flex;gap:26px}
+  nav .links a{color:var(--ink-soft);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;position:relative}
+  nav .links a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1.5px;background:var(--violet);transition:width .3s}
+  nav .links a:hover{color:var(--violet)}
+  nav .links a:hover::after{width:100%}
+  @media(max-width:760px){nav .links{display:none}}
+
+  header{min-height:76vh;display:flex;align-items:center;position:relative;padding-top:70px}
+  .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .hero-bg .blob{position:absolute;border-radius:50%;filter:blur(72px)}
+  .hero-bg .b1{width:560px;height:560px;background:radial-gradient(circle,rgba(130,96,171,.13),transparent 70%);top:-140px;right:-120px}
+  .hero-bg .b2{width:480px;height:480px;background:radial-gradient(circle,rgba(196,181,253,.14),transparent 70%);bottom:-160px;left:-100px}
+  .hero-grid{position:relative;z-index:2}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--violet);font-weight:600;margin-bottom:22px}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--violet);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(130,96,171,.5)}50%{box-shadow:0 0 0 7px rgba(130,96,171,0)}}
+  h1.name{font-family:'Fraunces';font-weight:600;font-size:clamp(38px,8vw,92px);line-height:1.04;letter-spacing:-.03em;white-space:nowrap}
+  h1.name .ln{display:block;overflow:hidden;padding-bottom:.14em}
+  h1.name .ln span{display:block;transform:translateY(118%);animation:rise .9s cubic-bezier(.16,1,.3,1) forwards}
+  h1.name .hello{display:block;font-size:clamp(20px,3.4vw,34px);font-style:italic;font-weight:500;color:var(--ink-soft);white-space:normal;line-height:1.1;margin-bottom:.06em;letter-spacing:0}
+  @keyframes rise{to{transform:translateY(0)}}
+  .role-rotor{font-family:'Fraunces';font-style:italic;color:var(--violet);font-weight:500}
+  .hero-sub{max-width:none;margin-top:30px;font-size:clamp(16px,1.9vw,19px);color:var(--ink-soft);opacity:0;animation:fade 1s ease .55s forwards}
+  .hero-sub b{color:var(--ink);font-weight:600}
+  @keyframes fade{to{opacity:1}}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:38px;opacity:0;animation:fade 1s ease .8s forwards}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:40px;text-decoration:none;font-weight:600;font-size:15px;transition:transform .25s,box-shadow .25s,background .25s,color .25s}
+  .btn-primary{background:var(--violet);color:#fff}
+  .btn-primary:hover{background:var(--violet-deep);transform:translateY(-3px);box-shadow:0 12px 30px rgba(130,96,171,.32)}
+  .btn-ghost{border:1.5px solid var(--violet);color:var(--violet-deep)}
+  .btn-ghost:hover{background:var(--violet);color:#fff;transform:translateY(-3px)}
+  .hero-meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:40px;color:var(--faint);opacity:0;animation:fade 1s ease 1s forwards}
+  .hero-meta span{display:flex;align-items:center;gap:8px}
+
+  section{padding:44px 0;position:relative}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:32px}
+  .sec-num{font-family:'IBM Plex Mono';font-weight:600;color:var(--violet);font-size:26px;letter-spacing:.04em}
+  .sec-title{font-family:'Fraunces';font-weight:500;font-size:clamp(34px,5vw,56px);line-height:1.02;letter-spacing:-.02em;flex:1}
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  #why .lead{font-family:'Fraunces';font-weight:300;font-size:clamp(18px,2.2vw,24px);line-height:1.4;letter-spacing:-.005em;max-width:none;color:var(--ink)}
+  #why .lead b{font-weight:600;font-style:italic}
+  #why .lead .hl{color:var(--violet);font-style:italic;font-weight:500}
+  #why .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:44px}
+  #why .pillar{border-top:1.5px solid var(--line);padding-top:20px}
+  #why .pillar h4{font-family:'Fraunces';font-size:21px;font-weight:600;margin-bottom:10px}
+  #why .pillar p{color:var(--ink-soft);font-size:15.5px;line-height:1.55}
+  #why .pillar .k{color:var(--violet);font-size:12px}
+  @media(max-width:760px){#why .pillars{grid-template-columns:1fr}}
+
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:760px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px;cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s,border-color .3s;position:relative;overflow:hidden}
+  .card::after{content:"";position:absolute;top:0;left:0;width:0;height:3px;background:var(--violet);transition:width .4s}
+  .card:hover{transform:translateY(-5px);box-shadow:0 18px 42px var(--shadow);border-color:var(--violet)}
+  .card:hover::after{width:100%}
+  .card .tag{display:inline-block;background:var(--tint);border:1px solid var(--line);color:var(--violet);border-radius:30px;padding:5px 13px;font-weight:600;margin-bottom:18px}
+  .card h3{font-family:'Fraunces';font-weight:600;font-size:25px;line-height:1.12;margin-bottom:6px}
+  .card .when{color:var(--faint);font-size:13.5px;margin-bottom:16px}
+  .card .summary{color:var(--ink-soft);font-size:16px}
+  .card .more{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1)}
+  .card.open .more{max-height:1100px}
+  .card .more ul{list-style:none;margin-top:18px;padding-top:18px;border-top:1px dashed var(--line)}
+  .card .more li{position:relative;padding-left:22px;margin-bottom:10px;font-size:15px;color:var(--ink-soft)}
+  .card .more li::before{content:"→";position:absolute;left:0;color:var(--violet);font-weight:700}
+  .card .toggle{display:flex;align-items:center;gap:8px;margin-top:18px;color:var(--violet);font-weight:600;font-size:14px}
+  .card .toggle .chev{transition:transform .4s}
+  .card.open .toggle .chev{transform:rotate(180deg)}
+
+  #arc{background:var(--tint)}
+  .lens-toggle{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:40px;padding:5px;margin-left:auto;gap:4px}
+  .lens-toggle button{border:none;background:none;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--faint);padding:9px 18px;border-radius:30px;cursor:pointer;transition:color .25s,background .25s}
+  .lens-toggle button.active{background:var(--violet);color:#fff}
+  @media(max-width:760px){.sec-head{flex-wrap:wrap}.lens-toggle{margin-left:0;margin-top:14px}}
+  .tl{position:relative;margin-top:20px}
+  .tl::before{content:"";position:absolute;left:13px;top:8px;bottom:8px;width:2px;background:var(--line)}
+  .tl-item{position:relative;padding-left:54px;padding-bottom:42px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item .node{position:absolute;left:5px;top:5px;width:18px;height:18px;border-radius:50%;background:var(--tint);border:3px solid var(--violet);transition:transform .3s,background .3s}
+  .tl-item:hover .node{transform:scale(1.25);background:var(--violet)}
+  .tl-item .yr{font-family:'IBM Plex Mono';font-size:12.5px;color:var(--violet);letter-spacing:.06em}
+  .tl-item h4{font-family:'Fraunces';font-size:23px;font-weight:600;margin:4px 0 8px;letter-spacing:-.01em}
+  .tl-item p{color:var(--ink-soft);font-size:16px;max-width:680px;transition:opacity .35s}
+  .tl-item p.swapping{opacity:0}
+
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  @media(max-width:760px){.metrics{grid-template-columns:1fr 1fr}}
+  .metric{text-align:left;border-left:2px solid var(--violet);padding-left:18px}
+  .metric .num{font-family:'Fraunces';font-weight:600;font-size:clamp(44px,6vw,64px);line-height:1;letter-spacing:-.02em;color:var(--ink)}
+  .metric .lbl{color:var(--ink-soft);font-size:14.5px;margin-top:8px;max-width:200px}
+
+  .skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media(max-width:760px){.skill-grid{grid-template-columns:1fr}}
+  .skill-block{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .skill-block h4{font-family:'Fraunces';font-size:20px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .skill-block h4 .ico{width:28px;height:28px;border-radius:8px;background:var(--violet);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+  .pills{display:flex;flex-wrap:wrap;gap:8px}
+  .pill{background:var(--tint);border:1px solid var(--line);border-radius:30px;padding:7px 14px;font-size:13.5px;color:var(--ink-soft);transition:all .2s}
+  .pill:hover{border-color:var(--violet);color:var(--violet);transform:translateY(-2px)}
+
+  #beyond{background:var(--ink)}
+  #beyond .sec-num{color:var(--lav)}
+  #beyond .sec-title{color:#fff}
+  #beyond .two{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:20px}
+  @media(max-width:760px){#beyond .two{grid-template-columns:1fr}}
+  #beyond .b{border:1px solid rgba(196,181,253,.28);border-radius:16px;padding:30px}
+  #beyond .b .mono{color:var(--lav)}
+  #beyond .b h3{font-family:'Fraunces';font-size:27px;font-weight:600;margin:12px 0;color:#fff}
+  #beyond .b p{color:rgba(248,249,250,.8);font-size:16px}
+  #beyond .quote{font-family:'Fraunces';font-style:italic;font-weight:300;font-size:clamp(24px,3.4vw,38px);line-height:1.3;max-width:840px;margin-top:42px;color:#fff}
+  #beyond .quote::first-letter{color:var(--lav)}
+
+  /* recommendations carousel */
+  .carousel{position:relative;max-width:760px;margin:0 auto}
+  .cviewport{position:relative;overflow:hidden}
+  .cslide{position:absolute;top:0;left:0;width:100%;opacity:0;transform:translateX(28px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1);pointer-events:none}
+  .cslide.active{position:relative;opacity:1;transform:none;pointer-events:auto}
+  .tcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:34px 36px}
+  .tcard .qmark{font-family:'Fraunces';font-weight:600;font-size:60px;line-height:.4;color:var(--violet);height:28px}
+  .tcard .quote-text p{color:var(--ink-soft);font-size:15.5px;line-height:1.66}
+  .tcard .who{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+  .tcard .who .nm{font-family:'Fraunces';font-weight:600;font-size:18px;color:var(--ink)}
+  .tcard .who .nm a{color:inherit;text-decoration:none;border-bottom:1.5px solid var(--violet);transition:color .2s}
+  .tcard .who .nm a:hover{color:var(--violet)}
+  .tcard .who .role{color:var(--faint);font-size:13px;margin-top:3px}
+  .tcard .who .ctx{color:var(--faint);font-size:12px;font-style:italic;margin-top:6px}
+  .cnav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:24px}
+  .cbtn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .25s,color .25s,transform .25s;line-height:1}
+  .cbtn:hover{border-color:var(--violet);color:var(--violet);transform:translateY(-2px)}
+  .cdots{display:flex;gap:9px;align-items:center}
+  .cdot{width:8px;height:8px;border-radius:50%;background:var(--line);border:none;cursor:pointer;padding:0;transition:background .25s,width .25s}
+  .cdot.active{background:var(--violet);width:22px;border-radius:5px}
+  #contact{text-align:center;padding:92px 0}
+  #contact h2{font-family:'Fraunces';font-weight:500;font-size:clamp(40px,7vw,84px);line-height:.98;letter-spacing:-.03em;margin-bottom:30px}
+  #contact h2 em{color:var(--violet);font-style:italic}
+  .contact-links{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:14px}
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--faint);font-size:13.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand">TD<span style="color:var(--violet)">.</span></div>
+  <div class="links">
+    <a href="#proof">Proof</a>
+    <a href="#arc">The Arc</a>
+    <a href="#skills">Skills</a>
+    <a href="#recs">Recommendations</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header>
+  <div class="hero-bg"><div class="blob b1"></div><div class="blob b2"></div></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="eyebrow mono"><span class="dot"></span> Belgrade, Serbia · Open to hybrid and remote work</div>
+      <h1 class="name">
+        <span class="hello">Hi, I'm</span>
+        <span class="ln"><span>Tamara Djenadic</span></span>
+      </h1>
+      <p class="hero-sub">
+        Throughout my career, I have worked in a variety of roles. Each one presented both a challenge and an opportunity to learn, grow, and demonstrate my ability to successfully adapt to new domains.
+        Today, I would describe myself as a <b>Project and Product Manager</b> who helps teams build products that create <span class="role-rotor">meaningful business value</span>.
+        Combining more than ten years of project management experience with three years in product ownership, my skill set is backed by a decade of turning data, complexity, and risk into decisions people trust.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#proof">See the product work →</a>
+        <a class="btn btn-ghost" href="#why">My approach</a>
+      </div>
+      <div class="hero-meta mono">
+        <span>◆ 10+ yrs in project · 3+ yrs in product</span>
+        <span>◆ PMP · PSM I · SAFe</span>
+        <span>◆ AI-native delivery</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- APPROACH -->
+<section id="why">
+  <div class="wrap">
+    <div class="pillars">
+      <div class="pillar reveal">
+        <div class="k mono">Evidence before assumptions</div>
+        <h4>Decisions backed by data</h4>
+        <p>My background includes credit risk modeling, stress testing, and financial impact analysis. It taught me to challenge assumptions, validate hypotheses, and use data to support product decisions while balancing speed, risk, and business goals.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="k mono">Discovery as a foundation</div>
+        <h4>Customer &amp; problem first</h4>
+        <p>I lead product discovery, user research, and user-story mapping to ensure customers' budget is spent solving the right problems. Throughout my career I've worked with stakeholders across industries including media, fintech, and AI, translating business needs and customer insights into products that deliver value.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="k mono">Alignment through clarity</div>
+        <h4>Connecting strategy and execution</h4>
+        <p>Successful products require alignment across business, technology, and customers. I work closely with stakeholders at all levels, from executive leadership to engineering teams, to create shared understanding, maintain focus on outcomes, and guide initiatives from concept to delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">Product experience</h2>
+    </div>
+    <p class="reveal" style="color:var(--ink-soft);max-width:none;margin:-18px 0 40px;font-size:18px;text-align:justify">
+      My experience spans from guiding product initiatives to building working products. If you want to know more, select a card to explore in detail.
+    </p>
+    <div class="cards">
+
+      <div class="card reveal">
+        <span class="tag mono">Full PM ownership</span>
+        <h3>Company-wide internal platform</h3>
+        <div class="when">Product Manager · 2025–present · Levi9</div>
+        <p class="summary">Guided an employee self-service platform from discovery to delivery, owning research, definition, user flows, prototypes, and roadmap.</p>
+        <div class="more"><ul>
+          <li>Ran user interviews with representatives from every role, using open-ended questions to uncover the underlying problem: first flagged by a single role, it actually spanned the whole workflow (synthesized in Notion).</li>
+          <li>Built the problem statement, PRD, project overview, and high-level as-is and to-be user and system flows from the synthesized data (ChatGPT, Eraser).</li>
+          <li>Expanded high-level flows into detailed user flows (Claude), then worked with the design team on clickable prototypes (Figma, Claude Design), iterating with stakeholders to fine-tune.</li>
+          <li>Built and prioritized the roadmap through to release, writing developer-ready user stories for handover (Claude Cowork, Claude Code).</li>
+        </ul></div>
+        <div class="toggle">Read the full story <span class="chev">▾</span></div>
+      </div>
+
+      <div class="card reveal">
+        <span class="tag mono">2 yrs · AI product</span>
+        <h3>AI Agents product development</h3>
+        <div class="when">Product Owner · 2023–present · Dutch Digital Media Asset Co.</div>
+        <p class="summary">Contributing to the evolution of a Dutch Digital Media Asset Management company's AI Agents platform, with a particular focus on the Enrichment Agent: an AI-powered capability that automatically enriches digital assets with business-specific metadata, improving content discoverability, reuse, and governance at scale.</p>
+        <div class="more"><ul>
+          <li>Partner with Product Management, Design, and Engineering leaders to shape product direction and identify enhancement opportunities based on customer feedback and usage insights.</li>
+          <li>Explore and propose ways to strengthen the connections between the Enrichment Agent and the DAM ecosystem.</li>
+          <li>Participate in quarterly planning and roadmap discussions, challenging assumptions, evaluating trade-offs, and refining priorities to maximize value.</li>
+          <li>Collaborate with Technical Leads and development teams to break down initiatives into epics and delivery-ready requirements.</li>
+          <li>Lead backlog refinement, providing context, clarifying requirements, and incorporating engineering feedback to improve solution quality.</li>
+          <li>Conduct feature validation and acceptance testing, ensuring delivered functionality meets user needs and product expectations.</li>
+        </ul></div>
+        <div class="toggle">Read the full story <span class="chev">▾</span></div>
+      </div>
+
+      <div class="card reveal">
+        <span class="tag mono">Product strategy</span>
+        <h3>Leading the Product initiative</h3>
+        <div class="when">Delivery Center level · Levi9</div>
+        <p class="summary">Contributed to the development of a product-led culture across the Delivery Center, helping colleagues adopt product thinking and discovery-driven ways of working.</p>
+        <div class="more"><ul>
+          <li>Collaborating with a cross-functional group of product practitioners to promote a shift from solution-focused delivery to problem-focused product thinking.</li>
+          <li>Designed and facilitated workshops covering the full product lifecycle, using real project examples.</li>
+          <li>Led mentoring sessions, internal training, and company-wide presentations to strengthen product management capabilities.</li>
+          <li>Supported Delivery Managers during pre-sales and discovery engagements, helping structure problem exploration, stakeholder alignment, and product discovery activities.</li>
+        </ul></div>
+        <div class="toggle">Read the full story <span class="chev">▾</span></div>
+      </div>
+
+      <div class="card reveal">
+        <span class="tag mono">Service offering</span>
+        <h3>Building a Product Discovery service offering</h3>
+        <div class="when">Company-wide · current</div>
+        <p class="summary">Co-designed and delivered an AI-enabled product discovery service offering, defining an end-to-end methodology, reusable toolkits, and a consultant playbook to standardize how discovery is run across the company.</p>
+        <div class="more"><ul>
+          <li>Structured a discovery framework of four phases (ALIGN, LEARN, DESIGN, PLAN) supported by a Continuous Discovery loop, enabling consistent execution and easier positioning of the offering.</li>
+          <li>Developed core toolkits for each phase, with detailed guides for Delivery Managers covering how and when to use each template, the success criteria and key decisions per phase, the minimum artifacts to produce, and how to lead the workshops for each technique.</li>
+          <li>Created ALIGN guides for the Business Model Canvas, Problem Statement Canvas, and Assumption Map to establish shared understanding of outcomes, risks, and strategic direction.</li>
+          <li>Created LEARN guides for Interview Guides, Persona Canvas, and Customer Journey Mapping to translate qualitative inputs into structured, evidence-based insights.</li>
+          <li>Designed a validation and prioritization layer (Opportunity Solution Tree, RICE, and User Story Mapping) so teams can test assumptions and prioritize initiatives with greater confidence.</li>
+          <li>Embedded AI-enabled working practices (Microsoft Copilot, Claude, and structured prompting) into research synthesis, PRD creation, experiment design, and delivery preparation.</li>
+          <li>Packaged the offering as both an engagement playbook and onboarding guide, enabling consistent delivery across consultants while allowing adaptation for client maturity levels.</li>
+        </ul></div>
+        <div class="toggle">Read the full story <span class="chev">▾</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- THE ARC -->
+<section id="arc">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">The arc</h2>
+      <div class="lens-toggle reveal">
+        <button data-lens="story" class="active">The roles</button>
+        <button data-lens="product">Product lens</button>
+      </div>
+    </div>
+    <div class="tl">
+
+      <div class="tl-item reveal">
+        <div class="node"></div>
+        <div class="yr">2005 – 2019</div>
+        <h4>Banking, risk &amp; the numbers</h4>
+        <p data-story="From personal banker to Market &amp; Credit Risk Manager: led risk management, built dashboards and models, ran Basel III &amp; stress testing, and project-managed critical risk initiatives."
+           data-product="Learned to make high-stakes decisions under uncertainty, turning data, scenarios, and risk into choices a whole organization could trust. The foundation of product judgment.">From personal banker to Market &amp; Credit Risk Manager: led risk management, built dashboards and models, ran Basel III &amp; stress testing, and project-managed critical risk initiatives.</p>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="node"></div>
+        <div class="yr">2006 – 2007 · 2018</div>
+        <h4>Business analysis &amp; PMP</h4>
+        <p data-story="Managed medium and large IT projects in banking, led requirements analysis and solution design."
+           data-product="Started bridging business problems and technical solutions: requirements, solution design, stakeholders. The exact skills a PM uses every day, formed early.">Managed medium and large IT projects in banking, led requirements analysis and solution design.</p>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="node"></div>
+        <div class="yr">2020</div>
+        <h4>Product Owner · Wirecard, Munich</h4>
+        <p data-story="Elicited and documented requirements for compliance &amp; regulatory domains, ran gap analysis, built solution concepts and mock-ups, translated needs into Epics and User Stories."
+           data-product="First formal product role. Owned discovery-to-backlog in a complex regulated domain. Proof I can productize the hardest, least &ldquo;visual&rdquo; problem spaces.">Elicited and documented requirements for compliance &amp; regulatory domains, ran gap analysis, built solution concepts and mock-ups, translated needs into Epics and User Stories.</p>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="node"></div>
+        <div class="yr">2020 – present</div>
+        <h4>Product Owner &amp; Delivery Lead · Levi9</h4>
+        <p data-story="Owned backlog and product planning, ran discovery workshops and user-story mapping, drove roadmaps and customer strategy, and led Agile delivery across concurrent teams."
+           data-product="Three years deep in product: roadmaps, discovery, PRDs, backlog, customer strategy, moving steadily product-first, from PO on AI agents to full PM on the internal platform.">Owned backlog and product planning, ran discovery workshops and user-story mapping, drove roadmaps and customer strategy, and led Agile delivery across concurrent teams.</p>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="node"></div>
+        <div class="yr">Now</div>
+        <h4>Product Manager</h4>
+        <p data-story="Full PM ownership of a company-wide platform, leading the Delivery Center's Product initiative to embed product ways of working across teams, and co-designing an AI-enabled Product Discovery service offering that standardizes how discovery is run across the company."
+           data-product="End-to-end product ownership combined with product strategy at Delivery Center level: coaching teams from feature delivery toward outcome-led product thinking, and standardizing discovery through a reusable methodology, toolkits, and consultant playbook.">Full PM ownership of a company-wide platform, leading the Delivery Center's Product initiative to embed product ways of working across teams, and co-designing an AI-enabled Product Discovery service offering that standardizes how discovery is run across the company.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section id="metrics">
+  <div class="wrap">
+    <div class="metrics">
+      <div class="metric reveal"><div class="num" data-to="20">0</div><div class="lbl">years leading cross-functional work</div></div>
+      <div class="metric reveal"><div class="num" data-to="3">0</div><div class="lbl">years owning products end to end</div></div>
+      <div class="metric reveal"><div class="num" data-to="10" data-suffix="+">0</div><div class="lbl">teams led across the career</div></div>
+      <div class="metric reveal"><div class="num" data-to="3">0</div><div class="lbl">core PM certifications</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">The toolkit</h2>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-block reveal">
+        <h4><span class="ico">◐</span> Product</h4>
+        <div class="pills">
+          <span class="pill">Product Ownership</span><span class="pill">Product Discovery</span>
+          <span class="pill">PRDs &amp; specs</span><span class="pill">UX flows</span>
+          <span class="pill">Roadmapping</span><span class="pill">User Story Mapping</span>
+          <span class="pill">Backlog prioritization</span><span class="pill">Product coaching</span>
+        </div>
+      </div>
+      <div class="skill-block reveal">
+        <h4><span class="ico">◑</span> Strategy &amp; Leadership</h4>
+        <div class="pills">
+          <span class="pill">Product strategy</span><span class="pill">Stakeholder management</span>
+          <span class="pill">RFPs &amp; sales proposals</span><span class="pill">Business reviews</span>
+          <span class="pill">Change management</span><span class="pill">Agile coaching</span>
+          <span class="pill">Program management</span>
+        </div>
+      </div>
+      <div class="skill-block reveal">
+        <h4><span class="ico">◒</span> Data &amp; Analytics</h4>
+        <div class="pills">
+          <span class="pill">Risk modeling</span><span class="pill">Scenario &amp; stress analysis</span>
+          <span class="pill">Delivery metrics</span><span class="pill">BI &amp; analytics tools</span>
+          <span class="pill">Business process analysis</span><span class="pill">Gap analysis</span>
+        </div>
+      </div>
+      <div class="skill-block reveal">
+        <h4><span class="ico">◓</span> AI-native &amp; Tools</h4>
+        <div class="pills">
+          <span class="pill">Claude &amp; Claude Code</span><span class="pill">AI-powered planning</span>
+          <span class="pill">Prototyping</span><span class="pill">Jira · Confluence</span>
+          <span class="pill">Figma · Miro · Mural</span><span class="pill">Azure DevOps</span>
+          <span class="pill">Scrum · Kanban · SAFe</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEYOND -->
+<section id="beyond">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Off the backlog</h2>
+    </div>
+    <div class="two">
+      <div class="b reveal">
+        <div class="mono">Published author</div>
+        <h3>In my spare time, I write</h3>
+        <p>I have published a short-story collection, <em>Indifference Also Killed the Cat</em> (2022), and a novel, <em>What Makes Noise in the Lavender Fields</em> (2025). The process of writing requires many of the same skills as product development: understanding people, navigating ambiguity, balancing structure with creativity, and shaping complex ideas into coherent experiences that engage diverse audiences.</p>
+      </div>
+      <div class="b reveal">
+        <div class="mono">Guest lecturer · University of Belgrade</div>
+        <h3>Teaching how projects get delivered</h3>
+        <p>Deliver lectures on Waterfall and Agile project management at the Faculty of Mathematics, University of Belgrade, since 2024. Shared practical experience with three generations of Master's students, helping them connect project management principles with real-world project and product delivery, stakeholder management, and risk management.</p>
+      </div>
+      <div class="b reveal" style="grid-column:1/-1;margin-top:8px">
+        <div class="mono">Webinar · Podcast</div>
+        <h3>Winning on Repeat: Product Engineering in the Age of AI</h3>
+        <p>Participated as a panelist in this webinar discussion on product engineering and AI-driven delivery.</p>
+        <a href="https://www.youtube.com/watch?v=GwpemWRRx8M" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;color:var(--lav);font-size:14px;font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--lav)">Watch on YouTube ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">Recommendations</h2>
+    </div>
+    <div class="carousel">
+      <div class="cviewport">
+
+        <div class="cslide active">
+          <div class="tcard">
+            <div class="qmark">&ldquo;</div>
+            <div class="quote-text"><p>From the very beginning, we established a transparent and open working relationship built on mutual respect for each other's opinions and ideas. We worked closely together to define and refine business requirements, as well as high-level technical solutions. Tamara has a strong understanding of technical concepts and is able to effectively incorporate them into solution design and decision-making. As a Technical Team Lead, this significantly simplified my part of the process and reduced the time needed to reach alignment on key decisions. She demonstrates strong critical thinking skills while maintaining a collaborative and respectful approach, always valuing the perspectives and ideas of others. Working alongside her also helped me further develop my own strategic product thinking. I learned a great deal from our collaboration throughout the project. Her openness, proactive mindset, and ability to build strong relationships enabled her to work effectively with demanding clients and business stakeholders, as well as with other teams and Product Owners within our domain.</p></div>
+            <div class="who">
+              <div class="nm">Miroslav Radujkov</div>
+              <div class="role">Software Architect · Levi9</div>
+              <div class="ctx">Worked with Tamara on the same team</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cslide">
+          <div class="tcard">
+            <div class="qmark">&ldquo;</div>
+            <div class="quote-text"><p>Working with Tamara was one of those experiences that reminds you how much the right person in a delivery role can change everything. When she joined our team, we were building a data platform for a Dutch media company in what I'd honestly describe as a chaotic environment, and she brought clarity, structure, and calm almost immediately. As both Delivery Manager and Scrum Master, she handled client communication with confidence, consistently raised the right flags at the right time, and created the kind of safe, focused space where the team could actually do their best work. What struck me most, though, was her genuine curiosity about the technical side: she'd regularly dig into what we were building, ask sharp questions about our challenges, and really understand the work rather than just manage around it. That combination of delivery excellence and technical engagement is rare. Tamara is, without a doubt, the best DM I've had the pleasure of working with, and any team would be lucky to have her.</p></div>
+            <div class="who">
+              <div class="nm"><a href="https://www.linkedin.com/in/radosavljevicnikola/" target="_blank" rel="noopener">Nikola Radosavljević</a></div>
+              <div class="role">Data Architect · Department Manager @ Levi9 Technology Services</div>
+              <div class="ctx">Worked with Tamara on the same team</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cslide">
+          <div class="tcard">
+            <div class="qmark">&ldquo;</div>
+            <div class="quote-text"><p>I had the pleasure of working with Tamara in the DataOps team at Talpa, where she joined us as a Delivery Manager from Levi9. In this role, Tamara proved to be a highly professional and people-focused agile practitioner who brings structure, positivity, and clarity to a team. She excels at facilitating collaboration, strengthening team ownership, and creating a safe environment in which people feel empowered to speak up and continuously improve. Tamara has a strong understanding of team dynamics and balances empathy with a clear focus on outcomes. Based on our collaboration, it is no surprise to see her grow into a Product Owner role. Tamara is a great partner to work with, and I would confidently recommend her to any organization looking for someone who adds real value to both team and product.</p></div>
+            <div class="who">
+              <div class="nm"><a href="https://www.linkedin.com/in/jairotimmermans/" target="_blank" rel="noopener">Jairo Timmermans</a></div>
+              <div class="role">Artificial Intelligence Lead at Talpa Network · Talpa Studios</div>
+              <div class="ctx">Worked with Tamara on the same team</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cslide">
+          <div class="tcard">
+            <div class="qmark">&ldquo;</div>
+            <div class="quote-text"><p>Tamara has a rare ability to bring structure and calm to complex, fast-moving work. She turns ambiguous goals into clear plans the whole team can rally behind, keeps stakeholders aligned without losing momentum, and always keeps the focus on outcomes that matter. Working with her made the entire delivery feel more predictable and more purposeful.</p></div>
+            <div class="who">
+              <div class="nm">Placeholder Name</div>
+              <div class="role">VP of Product · Example Company</div>
+              <div class="ctx">Sample recommendation, replace with your fourth</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cslide">
+          <div class="tcard">
+            <div class="qmark">&ldquo;</div>
+            <div class="quote-text"><p>A product leader who pairs sharp analytical thinking with genuine empathy for the team. Tamara consistently asks the right questions, challenges assumptions constructively, and helps everyone understand the why behind the work. She raised the bar for how we approached discovery and delivery alike.</p></div>
+            <div class="who">
+              <div class="nm">Placeholder Name</div>
+              <div class="role">Engineering Manager · Sample Studios</div>
+              <div class="ctx">Sample recommendation, replace with your fifth</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="cnav">
+        <button class="cbtn cprev" aria-label="Previous recommendation">&lsaquo;</button>
+        <div class="cdots"></div>
+        <button class="cbtn cnext" aria-label="Next recommendation">&rsaquo;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <h2 class="reveal">Let's build something<br><em>worth building.</em></h2>
+    <div class="contact-links reveal">
+      <a class="btn btn-primary" href="mailto:tamaradjenadic@gmail.com">tamaradjenadic@gmail.com</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/tamara-djenadic/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <footer class="wrap">
+      <span>© 2026 Tamara Djenadic</span>
+      <span class="mono">Product Manager · Belgrade, Serbia</span>
+    </footer>
+  </div>
+</section>
+
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*0.07+'s';io.observe(el)});
+  document.querySelectorAll('.card').forEach(c=>{
+    c.addEventListener('click',()=>{
+      const open=c.classList.contains('open');
+      document.querySelectorAll('.card').forEach(x=>{x.classList.remove('open');x.querySelector('.toggle').firstChild.textContent='Read the full story '});
+      if(!open){c.classList.add('open');c.querySelector('.toggle').firstChild.textContent='Close '}
+    });
+  });
+  (function(){
+    const car=document.querySelector('.carousel'); if(!car) return;
+    const slides=[...car.querySelectorAll('.cslide')];
+    const dotsWrap=car.querySelector('.cdots');
+    let idx=0, timer;
+    slides.forEach((s,n)=>{const d=document.createElement('button');d.className='cdot'+(n===0?' active':'');d.setAttribute('aria-label','Go to recommendation '+(n+1));d.addEventListener('click',()=>{go(n);reset();});dotsWrap.appendChild(d);});
+    const dots=[...dotsWrap.children];
+    function go(n){slides[idx].classList.remove('active');dots[idx].classList.remove('active');idx=(n+slides.length)%slides.length;slides[idx].classList.add('active');dots[idx].classList.add('active');}
+    function reset(){clearInterval(timer);timer=setInterval(()=>go(idx+1),9000);}
+    car.querySelector('.cprev').addEventListener('click',()=>{go(idx-1);reset();});
+    car.querySelector('.cnext').addEventListener('click',()=>{go(idx+1);reset();});
+    timer=setInterval(()=>go(idx+1),9000);
+    car.addEventListener('mouseenter',()=>clearInterval(timer));
+    car.addEventListener('mouseleave',reset);
+  })();
+  const lensBtns=document.querySelectorAll('.lens-toggle button');
+  lensBtns.forEach(b=>b.addEventListener('click',()=>{
+    lensBtns.forEach(x=>x.classList.remove('active'));b.classList.add('active');
+    const lens=b.dataset.lens;
+    document.querySelectorAll('.tl-item p').forEach(p=>{
+      p.classList.add('swapping');
+      setTimeout(()=>{p.textContent=p.dataset[lens];p.classList.remove('swapping')},320);
+    });
+  }));
+  const counted=new Set();
+  const cio=new IntersectionObserver((es)=>{es.forEach(e=>{
+    if(e.isIntersecting&&!counted.has(e.target)){counted.add(e.target);
+      const el=e.target,to=+el.dataset.to,suf=el.dataset.suffix||'';let n=0;
+      const step=Math.max(1,Math.round(to/40));
+      const t=setInterval(()=>{n+=step;if(n>=to){n=to;clearInterval(t)}el.textContent=n+suf},28);
+    }})},{threshold:.6});
+  document.querySelectorAll('.num').forEach(el=>cio.observe(el));
+</script>
+</body>
+</html>
